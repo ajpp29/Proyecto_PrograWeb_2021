@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -9,25 +10,22 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
 
   login_form!: FormGroup;
-  submitted = false;
-  titulo = 'Crear un Formulario con Angular 7 y Bootstrap 4 + Validación';
 
   constructor(private formBuilder: FormBuilder) { }
 
-  get f() { return this.login_form.controls; }
-
   onSubmit() {
-    
-    console.log("Hola")
+
+    const email = this.login_form.value.email;
+    const password = this.login_form.value.password;
+    let json = JSON.stringify({ email: email, password: password })
+
+    console.log(json)
   }
 
   ngOnInit(): void {
     this.login_form = this.formBuilder.group({
-      nya: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      asunto: ['', Validators.required],
-      postre: ['', Validators.required],
-      mensaje: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['', Validators.required]
     });
   }
 
