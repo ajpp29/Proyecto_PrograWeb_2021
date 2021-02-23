@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
+import {LoginService} from '../Services/login.service'
 
 @Component({
   selector: 'app-login',
@@ -17,9 +18,16 @@ export class LoginComponent implements OnInit {
 
     const email = this.login_form.value.email;
     const password = this.login_form.value.password;
+
     let json = JSON.stringify({ email: email, password: password })
 
-    console.log(json)
+    //localStorage.setItem('user', json)
+
+    var data: any
+    data = localStorage.getItem('user')
+
+
+    console.log()
   }
 
   ngOnInit(): void {
