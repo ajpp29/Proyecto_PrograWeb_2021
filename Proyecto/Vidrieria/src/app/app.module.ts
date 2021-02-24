@@ -8,13 +8,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './Components/login/login.component';
 import { HomeComponent } from './Components/home/home.component';
+import { LayoutComponent } from './Components/layout/layout.component';
 import {HttpClientModule} from '@angular/common/http';
+import { LayoutInicioComponent } from './Components/layout-inicio/layout-inicio.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    LayoutComponent,
+    LayoutInicioComponent
   ],
   imports: [
     BrowserModule,

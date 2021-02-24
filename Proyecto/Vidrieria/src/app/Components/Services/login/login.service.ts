@@ -14,9 +14,10 @@ export class LoginService {
 
   constructor(private httpClient: HttpClient, private _router: Router) { }
 
-  private signIn(user: any): Observable<any> {
-    var result:any;
-    var data:any;
+  public signIn(user: any): Observable<any> {
+    var result: any;
+    var data: any;
+    let res;
     // return this.httpClient.post(`${environment.server}/ajjm/user/login`, user).pipe(
 
     //   map(res => {
@@ -26,21 +27,34 @@ export class LoginService {
     //       return throwError(err);
     //     }))
     // );
-    
-    let res = JSON.stringify({ result: JSON.stringify({ code: 200, message: 'OK' }), data: JSON.stringify({ email: JSON.parse(user).email, nivel: 0 }) })
 
-    result = JSON.parse(JSON.parse(res).result)
-    data = JSON.parse(JSON.parse(res).data)
+    if(JSON.parse(user).password == '1234' ){
+    res = JSON.stringify({ result: JSON.stringify({ code: 200, message: 'OK' }), data: JSON.stringify({ email: JSON.parse(user).email, nivel: 0 }) })
+    } else{
+    res = JSON.stringify({ result: JSON.stringify({ code: 400, message: 'OK' }), data: JSON.stringify({ email: JSON.parse(user).email, nivel: 0 }) })
+    }
+    result = JSON.parse(res).result;
+    data = JSON.parse(res).data;
 
-    if(result.code == 200){
-      localStorage.setItem('user',data)
+    var code = JSON.parse(result).code
+
+    if (code == 200) {
+      localStorage.setItem('user', data)
     }
 
     return result;
   }
 
-  public get getUser() {
-    return localStorage.getItem('user');
+  public getUser(): Observable<any> {
+    var user: any
+    user = localStorage.getItem('user');
+
+    return user;
+  }
+
+  public logOut() {
+    localStorage.removeItem('user');
+    this._router.navigate(['/login'])
   }
 
 }
